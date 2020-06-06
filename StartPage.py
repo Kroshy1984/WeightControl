@@ -77,6 +77,9 @@ class StartPage():
         self.str += f"{datetime.datetime.now()} : Значения успешно переданы в базу данных \n"
         mt.commit()
         self.str += f"{datetime.datetime.now()} : Изменения сохранены \n"
+        cursor = mt.cursor()
+        self.str+="База\n"
+        for row in cursor.execute("select* from Weight"): self.str+=f"{datetime.datetime.now()} : {row}\n"
 
     def __str__(self)-> str:
         return self.str
