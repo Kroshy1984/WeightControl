@@ -25,10 +25,17 @@ class StartPage():
         except ValueError:
             print("Ошибка значения")
             self.Comment = tkinter.Toplevel(self.Start)
-            self.Comment.geometry('300x200+200+200')
-            self.Comment.title("Ошибка значения")
+            self.Comment.geometry('400x200+200+200')
+            self.Comment.title("Ошибка значения веса!")
             label = tkinter.Label(self.Comment, text="Введите Заново!", bg="lightgrey", fg="red")
             label.place(x=10, y=10)
+            label = tkinter.Label(self.Comment, text="Нужно вводить дробное число!", bg="lightgrey", fg="red")
+            label.place(x=10, y=30)
+            label = tkinter.Label(self.Comment, text="Оно должно быть разделено точкой или запятой!", bg="lightgrey", fg="red")
+            label.place(x=10, y=50)
+            label = tkinter.Label(self.Comment, text="Пустым окно быть не должно!", bg="lightgrey",
+                                  fg="red")
+            label.place(x=10, y=70)
             btn2 = tkinter.Button(self.Comment, text="Исправить вес", bg="red", fg="black",
                                   command=lambda: self.Comment.destroy())
             btn2.place(x=10, y=150)
@@ -52,6 +59,7 @@ class StartPage():
         self.f = str(datetime.datetime.now())
         print(self.f)
         print(self.a)
+        self.Comment.destroy()
 
     def __str__(self)-> str:
         return f"то, что ушло в базу - {self.f,self.a}"
