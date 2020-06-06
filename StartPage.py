@@ -65,7 +65,7 @@ class StartPage():
         self.a= self.message_entry1.get()
         self.str+=f"указан комментарий {self.a}\n"
         self.f = str(datetime.datetime.now())
-        self.str+=f"дата и время получены {self.f}"
+        self.str+=f"дата и время получены {self.f}\n"
         self.Comment.destroy()
         self.str += f"Выполняется подключение к базе данных\n"
         mt = sqlite3.connect("Weight.bd")
