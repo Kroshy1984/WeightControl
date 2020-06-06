@@ -3,6 +3,7 @@ import datetime
 
 class StartPage():
     def __init__(self):
+        self.str="программа запущена\n"
         self.Start = tkinter.Tk()
         self.Start.geometry('640x500')  # геометрия окна
         self.Start.title("Программа для контроля веса")  # название окна
@@ -17,13 +18,19 @@ class StartPage():
 
     def ToBase(self):
         self.b = self.message_entry.get()
+        self.str+=f"получен вес {self.b}\n"
         print(self.b.find(","))
-        if self.b.find(",")>1:self.b=self.b.replace(",",".")
+        if self.b.find(",")>1:
+            self.str=self.str+f"найдедена запятая\n"
+            self.b=self.b.replace(",",".")
+            self.str = self.str + f"заменена на точку, получено значение {self.b}\n"
         print(self.b)
         try:
          self.b1=float(self.b)
+         self.str+=f"вес успешно взять в работу \n"
         except ValueError:
             print("Ошибка значения")
+            self.str+="Ошибка значения\n"
             self.Comment = tkinter.Toplevel(self.Start)
             self.Comment.geometry('400x200+200+200')
             self.Comment.title("Ошибка значения веса!")
@@ -53,13 +60,14 @@ class StartPage():
             btn2 = tkinter.Button(self.Comment, text="Передумал заносить", bg="red", fg="black",
                               command=lambda: self.Comment.destroy())
             btn2.place(x=10, y=150)
+            self.str+=f"вес внесен успешно\n {self.b}"
 
     def SQLPower(self):
         self.a= self.message_entry1.get()
+        self.str+=f"указан комментарий{self.a}\n"
         self.f = str(datetime.datetime.now())
-        print(self.f)
-        print(self.a)
+        self.str+=f"дата и время получены{self.f}"
         self.Comment.destroy()
 
     def __str__(self)-> str:
-        return f"то, что ушло в базу - {self.f,self.a}"
+        return self.str
