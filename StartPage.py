@@ -29,6 +29,9 @@ class StartPage():
             self.Comment.title("Ошибка значения")
             label = tkinter.Label(self.Comment, text="Введите Заново!", bg="lightgrey", fg="red")
             label.place(x=10, y=10)
+            btn2 = tkinter.Button(self.Comment, text="Исправить вес", bg="red", fg="black",
+                                  command=lambda: self.Comment.destroy())
+            btn2.place(x=10, y=150)
         else:
             self.Comment = tkinter.Toplevel(self.Start)
             self.Comment.geometry('300x200+200+200')
