@@ -1,1 +1,2 @@
-class StartPage():pass
+class StartPage():
+    pass
