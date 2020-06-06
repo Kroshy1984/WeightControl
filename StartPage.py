@@ -1,4 +1,6 @@
 import tkinter
+import datetime
+
 class StartPage():
     def __init__(self):
         self.Start = tkinter.Tk()
@@ -12,15 +14,25 @@ class StartPage():
                               command=self.ToBase)
         btn1.place(x=300, y=110)
         self.Start.mainloop()
+
     def ToBase(self):
         self.Comment = tkinter.Toplevel(self.Start)
         self.Comment.geometry('300x200+200+200')
         self.Comment.title("Желаете ли внести комментарий?")
         label = tkinter.Label(self.Comment, text="Введите комментарий:", bg="lightgrey", fg="red")
         label.place(x=10, y=10)
-        self.message_entry = tkinter.Entry(self.Comment, textvariable='')
-        self.message_entry.place(x=10, y=50,width=260,height=50)
+        self.message_entry1 = tkinter.Entry(self.Comment, textvariable='')
+        self.message_entry1.place(x=10, y=50,width=260,height=50)
         btn1 = tkinter.Button(self.Comment, text="Занести вес и комментарий в базу", bg="lightblue", fg="black",
                               command=self.SQLPower)
         btn1.place(x=10, y=120)
-    def SQLPower(self):pass
+
+    def SQLPower(self):
+        self.b= self.message_entry.get()
+        self.a= self.message_entry1.get()
+        self.f = str(datetime.datetime.now())
+        print(self.f)
+        print(self.a)
+
+    def __str__(self)-> str:
+        return f"то, что ушло в базу - {self.f,self.a}"
