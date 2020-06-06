@@ -1,5 +1,6 @@
 import tkinter
 import datetime
+import sqlite3
 
 class StartPage():
     def __init__(self):
@@ -19,12 +20,10 @@ class StartPage():
     def ToBase(self):
         self.b = self.message_entry.get()
         self.str+=f"получен вес {self.b}\n"
-        print(self.b.find(","))
         if self.b.find(",")>1:
-            self.str=self.str+f"найдедена запятая\n"
+            self.str+=f"найдедена запятая в позиции {self.b.find(',')}\n"
             self.b=self.b.replace(",",".")
             self.str = self.str + f"заменена на точку, получено значение {self.b}\n"
-        print(self.b)
         try:
          self.b1=float(self.b)
          self.str+=f"вес успешно взять в работу \n"
@@ -60,14 +59,24 @@ class StartPage():
             btn2 = tkinter.Button(self.Comment, text="Передумал заносить", bg="red", fg="black",
                               command=lambda: self.Comment.destroy())
             btn2.place(x=10, y=150)
-            self.str+=f"вес внесен успешно\n {self.b}"
+            self.str+=f"вес внесен успешно {self.b}\n"
 
     def SQLPower(self):
         self.a= self.message_entry1.get()
-        self.str+=f"указан комментарий{self.a}\n"
+        self.str+=f"указан комментарий {self.a}\n"
         self.f = str(datetime.datetime.now())
-        self.str+=f"дата и время получены{self.f}"
+        self.str+=f"дата и время получены {self.f}"
         self.Comment.destroy()
+        self.str += f"Выполняется подключение к базе данных\n"
+        mt = sqlite3.connect("Weight.bd")
+        self.str += f"База данных подключена\n"
+        cursor = mt.cursor()
+        self.str += f"Курсор выставлен\n"
+        cursor.execute('''Insert into Weight values (?,?,?);''',
+                       (self.f, self.b1, self.a))
+        self.str += f"Значения успешно переданы в базу данных \n"
+        mt.commit()
+        self.str += f"Изменения сохранены \n"
 
     def __str__(self)-> str:
         return self.str
