@@ -4,10 +4,20 @@ import sqlite3
 
 class StartPage():
     def __init__(self):
-        self.str=f"{datetime.datetime.now()} :  программа запущена\n"
+        self.str = f"{datetime.datetime.now()} :  программа запущена\n"
         self.Start = tkinter.Tk()
         self.Start.geometry('640x500')  # геометрия окна
         self.Start.title("Программа для контроля веса")  # название окна
+        self.Max()
+        self.str += f"{datetime.datetime.now()} : вычислено значение максимального веса {self.max}\n"
+        label3=tkinter.Label(self.Start, text=f"Максимальный вес за все время {self.max}", bg="lightgrey", fg="red")
+        label3.place(x=100, y=150)
+        self.str+=f"{datetime.datetime.now()} :  максимальный вес выведен на форму\n"
+        self.Min()
+        self.str += f"{datetime.datetime.now()} : вычислено значение минимального веса {self.min}\n"
+        label4 = tkinter.Label(self.Start, text=f"Минимальный вес за все время {self.min}", bg="lightgrey", fg="green")
+        label4.place(x=100, y=200)
+        self.str += f"{datetime.datetime.now()} :  минимальный вес выведен на форму\n"
         label = tkinter.Label(self.Start, text="Введите ваш вес сейчас", bg="lightgrey", fg="red")
         label.place(x=100, y=50)
         self.message_entry = tkinter.Entry(self.Start, textvariable='')
@@ -85,6 +95,26 @@ class StartPage():
         cursor = mt.cursor()
         self.str+=f"{datetime.datetime.now()} :База\n"
         for row in cursor.execute("select* from Weight"): self.str+=f"{row}\n"
+
+    def Max(self):
+        self.str += f"{datetime.datetime.now()} : Выполняется подключение к базе данных\n"
+        mt = sqlite3.connect("Weight.bd")
+        self.str += f"{datetime.datetime.now()} : База данных подключена\n"
+        cursor = mt.cursor()
+        self.str += f"{datetime.datetime.now()} : Курсор выставлен\n"
+        for row in cursor.execute('''Select max (Weight) from Weight'''):
+            row=str(row)
+            self.max=row[1:6]
+
+    def Min(self):
+        self.str += f"{datetime.datetime.now()} : Выполняется подключение к базе данных\n"
+        mt = sqlite3.connect("Weight.bd")
+        self.str += f"{datetime.datetime.now()} : База данных подключена\n"
+        cursor = mt.cursor()
+        self.str += f"{datetime.datetime.now()} : Курсор выставлен\n"
+        for row in cursor.execute('''Select min (Weight) from Weight'''):
+            row=str(row)
+            self.min=row[1:6]
 
     def __str__(self)-> str:
         return self.str
