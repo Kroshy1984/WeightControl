@@ -66,6 +66,8 @@ class StartPage():
         self.str+=f"{datetime.datetime.now()} : указан комментарий {self.a}\n"
         self.f = str(datetime.datetime.now())
         self.str+=f"{datetime.datetime.now()} : дата и время получены {self.f}\n"
+        self.day=datetime.datetime.today().weekday()
+        self.str += f"{datetime.datetime.now()} : день недели получен {self.day}\n"
         self.Comment.destroy()
         btn2 = tkinter.Button(self.Start, text="Закрыть и покинуть", bg="red", fg="black",
                               command=lambda: self.Start.destroy())
@@ -75,8 +77,8 @@ class StartPage():
         self.str += f"{datetime.datetime.now()} : База данных подключена\n"
         cursor = mt.cursor()
         self.str += f"{datetime.datetime.now()} : Курсор выставлен\n"
-        cursor.execute('''Insert into Weight values (?,?,?);''',
-                       (self.f, self.b1, self.a))
+        cursor.execute('''Insert into Weight values (?,?,?,?);''',
+                       (self.f, self.b1, self.a, self.day))
         self.str += f"{datetime.datetime.now()} : Значения успешно переданы в базу данных \n"
         mt.commit()
         self.str += f"{datetime.datetime.now()} : Изменения сохранены \n"
