@@ -11,12 +11,12 @@ class StartPage():
         self.Max()
         self.str += f"{datetime.datetime.now()} : вычислено значение максимального веса {self.max}\n"
         label3=tkinter.Label(self.Start, text=f"Максимальный вес за все время {self.max}", bg="lightgrey", fg="red")
-        label3.place(x=100, y=150)
+        label3.place(x=100, y=250)
         self.str+=f"{datetime.datetime.now()} :  максимальный вес выведен на форму\n"
         self.Min()
         self.str += f"{datetime.datetime.now()} : вычислено значение минимального веса {self.min}\n"
         label4 = tkinter.Label(self.Start, text=f"Минимальный вес за все время {self.min}", bg="lightgrey", fg="green")
-        label4.place(x=100, y=200)
+        label4.place(x=100, y=300)
         self.str += f"{datetime.datetime.now()} :  минимальный вес выведен на форму\n"
         label = tkinter.Label(self.Start, text="Введите ваш вес сейчас", bg="lightgrey", fg="red")
         label.place(x=100, y=50)
@@ -79,6 +79,8 @@ class StartPage():
         self.day=datetime.datetime.today().weekday()
         self.str += f"{datetime.datetime.now()} : день недели получен {self.day}\n"
         self.Comment.destroy()
+        self.diff=float(self.max)-self.b1
+        self.str += f"{datetime.datetime.now()} : разница в весе вычислена {self.diff}\n"
         btn2 = tkinter.Button(self.Start, text="Закрыть и покинуть", bg="red", fg="black",
                               command=lambda: self.Start.destroy())
         btn2.place(x=300, y=140)
@@ -87,8 +89,8 @@ class StartPage():
         self.str += f"{datetime.datetime.now()} : База данных подключена\n"
         cursor = mt.cursor()
         self.str += f"{datetime.datetime.now()} : Курсор выставлен\n"
-        cursor.execute('''Insert into Weight values (?,?,?,?);''',
-                       (self.f, self.b1, self.a, self.day))
+        cursor.execute('''Insert into Weight values (?,?,?,?,?);''',
+                       (self.f, self.b1, self.a, self.day,self.diff))
         self.str += f"{datetime.datetime.now()} : Значения успешно переданы в базу данных \n"
         mt.commit()
         self.str += f"{datetime.datetime.now()} : Изменения сохранены \n"
