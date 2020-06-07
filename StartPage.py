@@ -67,6 +67,9 @@ class StartPage():
         self.f = str(datetime.datetime.now())
         self.str+=f"{datetime.datetime.now()} : дата и время получены {self.f}\n"
         self.Comment.destroy()
+        btn2 = tkinter.Button(self.Start, text="Закрыть и покинуть", bg="red", fg="black",
+                              command=lambda: self.Start.destroy())
+        btn2.place(x=300, y=140)
         self.str += f"{datetime.datetime.now()} : Выполняется подключение к базе данных\n"
         mt = sqlite3.connect("Weight.bd")
         self.str += f"{datetime.datetime.now()} : База данных подключена\n"
@@ -78,8 +81,8 @@ class StartPage():
         mt.commit()
         self.str += f"{datetime.datetime.now()} : Изменения сохранены \n"
         cursor = mt.cursor()
-        self.str+="База\n"
-        for row in cursor.execute("select* from Weight"): self.str+=f"{datetime.datetime.now()} : {row}\n"
+        self.str+=f"{datetime.datetime.now()} :База\n"
+        for row in cursor.execute("select* from Weight"): self.str+=f"{row}\n"
 
     def __str__(self)-> str:
         return self.str
